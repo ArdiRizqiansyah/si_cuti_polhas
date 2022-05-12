@@ -17,14 +17,22 @@
         
         @include('includes.sidebar')
 
-        <div id="main">
-            
-            <div class="page-heading">
-                @yield('heading')
-            </div>
+        <div id="main" class="layout-navbar">
 
-            <div class="page-content">
-                @yield('content')
+            <header class="mb-3">
+                @include('includes.navbar')
+            </header>
+            
+            <div id="main-content">
+
+                <div class="page-heading">
+                    @yield('heading')
+                </div>
+    
+                <div class="page-content">
+                    @yield('content')
+                </div>
+                
             </div>
 
             <footer>
