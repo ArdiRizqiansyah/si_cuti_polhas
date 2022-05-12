@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('izin', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->text('avatar')->nullable();
-            $table->rememberToken();
+            $table->tinyInteger('permohonan')->comment('1 = Izin, 2 = Cuti');
+            $table->string('jenis');
+            $table->date('tgl_mulai');
+            $table->date('tgl_akhir');
+            $table->tinyInteger('status')->comment('1 = Disetujui, 2 = Ditolak, 3 = Menunggu');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('izin');
     }
 };
