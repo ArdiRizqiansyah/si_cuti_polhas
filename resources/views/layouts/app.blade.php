@@ -4,7 +4,7 @@
 
     @include('includes.meta')
 
-    <title>@yield('title') | YHC</title>
+    <title>@yield('title') | Politeknik Hasnur</title>
 
     @stack('before-styles')
     @include('includes.styles')
@@ -32,7 +32,7 @@
                 <div class="page-content">
                     @yield('content')
                 </div>
-                
+
             </div>
 
             <footer>

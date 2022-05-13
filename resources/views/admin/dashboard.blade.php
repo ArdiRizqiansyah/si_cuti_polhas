@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Dashboard')
+
 @section('heading')
     <h3>Profile Statistics</h3>
 @endsection

@@ -21,7 +21,7 @@ class RoleSeeder extends Seeder
                 'description' => 'Administrator',
             ],
             [
-                'name' => 'kepala_unit',
+                'name' => 'kepala',
                 'description' => 'Kepala Unit',
             ],
             [
