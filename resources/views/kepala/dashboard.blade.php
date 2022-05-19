@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <section class="row">
+    <section class="row justify-content-center">
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
@@ -20,26 +20,7 @@
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <h4 class="text-muted font-semibold">Data Pegawai</h4>
-                            <h4 class="font-extra-bold mb-0">{{ $pegawai->count() }}</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-md-4">
-                            <div class="stats-icon blue">
-                                <span class="mt-2">
-                                    <i class="bi bi-person-badge-fill"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <h4 class="text-muted font-semibold">Data Cuti</h4>
+                            <h4 class="text-muted font-semibold">Permohonan Cuti</h4>
                             <h4 class="font-extra-bold mb-0">{{ $cuti->count() }}</h4>
                         </div>
                     </div>
@@ -58,7 +39,7 @@
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <h4 class="text-muted font-semibold">Data Izin</h4>
+                            <h4 class="text-muted font-semibold">Permohonan Izin</h4>
                             <h4 class="font-extra-bold mb-0">{{ $izin->count() }}</h4>
                         </div>
                     </div>

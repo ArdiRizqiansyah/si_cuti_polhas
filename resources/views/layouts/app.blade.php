@@ -33,11 +33,11 @@
                     @yield('content')
                 </div>
 
-            </div>
+                <footer>
+                    @include('includes.footer')
+                </footer>
 
-            <footer>
-                @include('includes.footer')
-            </footer>
+            </div>
 
         </div>
 
