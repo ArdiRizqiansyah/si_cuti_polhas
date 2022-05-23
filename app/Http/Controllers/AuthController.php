@@ -29,7 +29,7 @@ class AuthController extends Controller
             }
         }
 
-        return redirect()->route('login')->with('failed', 'Email atau Password salah tolong periksa kembali');
+        return redirect()->route('login')->with('failed', 'Username atau Password salah tolong periksa kembali');
     }
 
     public function logout()

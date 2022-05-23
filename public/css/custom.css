@@ -1,3 +1,8 @@
 .choices__input{
     color: #495057 !important;
 }
+
+.bio-img {
+    max-width: 100px;
+    max-height: 100px;   
+}

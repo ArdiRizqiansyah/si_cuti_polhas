@@ -20,7 +20,7 @@ class PegawaiController extends Controller
     public function index(Request $request)
     {
         $data = [
-            'pegawai' => Pegawai::with(['user', 'unit'])->search($request->keyword)->paginate(10),
+            'pegawai' => Pegawai::with(['user', 'unit', 'kepala'])->search($request->keyword)->paginate(10),
         ];
         
 
@@ -85,12 +85,6 @@ class PegawaiController extends Controller
         // simpan data ke pegawai
         $pegawai = Pegawai::create($data_pegawai);
 
-        // simpan pegawai ke tabel pegawai_unit
-        PegawaiUnit::create([
-            'pegawai_id' => $pegawai->id,
-            'unit_id' => $request->unit_id,
-        ]);
-
         return back()->with('success', 'Data pegawai berhasil ditambahkan');
     }
 
@@ -114,7 +108,7 @@ class PegawaiController extends Controller
     public function edit(Pegawai $pegawai)
     {
         $data = [
-            'pegawai' => $pegawai,
+            'pegawai' => $pegawai->load(['user', 'unit']),
             'units' => Unit::all(),
         ];
 

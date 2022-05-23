@@ -9,11 +9,19 @@
 
             <h3 class="my-3">SISTEM INFORMASI KEPEGAWAIAN</h3>
 
-            <form action="{{ route('post.login') }}" method="POST">
+            @if (session('failed'))
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <div>
+                        {{ session('failed') }}
+                    </div>
+                </div>
+            @endif
 
+            <form action="{{ route('post.login') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{{ old('username') }}" required>
                 </div>
     
                 <div class="mb-3">

@@ -20,7 +20,7 @@
                                 <div class="input-group">
                                     <input type="text" name="keyword" class="form-control" placeholder="Cari Cuti">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">Cari</button>
+                                        <button class="btn btn-primary" type="submit"><i class="fa fa-search me-1"></i>Cari</button>
                                     </div>
                                 </div>
                             </form>
@@ -62,7 +62,7 @@
                                                 </td>
                                                 <td>
                                                     {{-- <a href="#" class="btn btn-success">Ubah</a> --}}
-                                                    <button onclick="hapusData('{{ route('admin.cuti.destroy', ['cuti' => $c->id]) }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete">Hapus</button>
+                                                    <button onclick="hapusData('{{ route('admin.cuti.destroy', ['cuti' => $c->id]) }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="far fa-trash-alt me-1"></i>Hapus</button>
                                                 </td>
                                             </tr>
                                         @empty

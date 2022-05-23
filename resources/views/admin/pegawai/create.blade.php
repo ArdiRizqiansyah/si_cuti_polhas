@@ -11,8 +11,11 @@
     @include('includes.form_select')
 
     <div class="row justify-content-center">
-        <div class="col-lg-9 col-md-10">
-            <div class="card">
+        <div class="col-lg-8 col-md-10">
+            
+            <a href="{{ route('admin.pegawai.index') }}"><i class="fa fa-chevron-left"></i> Kembali</a>
+
+            <div class="card mt-3">
                 <div class="card-body">
                     <form action="{{ route('admin.pegawai.store') }}" method="post">
                         @csrf

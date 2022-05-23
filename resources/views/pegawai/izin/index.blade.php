@@ -16,14 +16,14 @@
                 <div class="card-body">
                     <div class="row mb-3 justify-content-between">
                         <div class="col-md-3">
-                            <a href="{{ route('pegawai.izin.create') }}" class="btn btn-primary">Tambah Izin</a>
+                            <a href="{{ route('pegawai.izin.create') }}" class="btn btn-primary"><i class="fa fa-plus me-1"></i>Tambah Izin</a>
                         </div>
                         <div class="col-md-4">
                             <form action="{{ route('pegawai.izin.index') }}" method="get">
                                 <div class="input-group">
                                     <input type="text" name="keyword" class="form-control" placeholder="Cari Data Izin">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">Cari</button>
+                                        <button class="btn btn-primary" type="submit"><i class="fa fa-search me-1"></i>Cari</button>
                                     </div>
                                 </div>
                             </form>
@@ -62,8 +62,8 @@
                                                 </td>
                                                 <td>{{ $i->tgl_akhir }}</td>
                                                 <td>
-                                                    <a href="{{ route('pegawai.izin.edit', ['izin' => $i->id]) }}" class="btn btn-success">Ubah</a>
-                                                    <button onclick="hapusData('{{ route('pegawai.izin.destroy', ['izin' => $i->id]) }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete">Hapus</button>
+                                                    <a href="{{ route('pegawai.izin.edit', ['izin' => $i->id]) }}" class="btn btn-success"><i class="far fa-edit me-1"></i>Ubah</a>
+                                                    <button onclick="hapusData('{{ route('pegawai.izin.destroy', ['izin' => $i->id]) }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="far fa-trash-alt me-1"></i>Hapus</button>
                                                 </td>
                                             </tr>
                                         @empty

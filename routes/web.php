@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Route;
 // controller admin
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PegawaiController AS AdminPegawaiController;
+use App\Http\Controllers\Admin\UpdatePegawaiController AS AdminUpdatePegawaiController;
 use App\Http\Controllers\Admin\UnitController AS AdminUnitController;
 use App\Http\Controllers\Admin\CutiController AS AdminCutiController;
+use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\IzinController AS AdminIzinController;
 use App\Http\Controllers\Admin\LaporanController AS AdminLaporanController;
 
@@ -19,6 +21,7 @@ use App\Http\Controllers\Pegawai\IzinController As PegawaiIzinController;
 
 // controller kepala
 use App\Http\Controllers\Kepala\DashboardController AS KepalaDashboardController;
+use App\Http\Controllers\Kepala\ProfileController AS KepalaProfileController;
 use App\Http\Controllers\Kepala\CutiController AS KepalaCutiController;
 use App\Http\Controllers\Kepala\IzinController AS KepalaIzinController;
 
@@ -50,7 +53,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function() {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
         // pegawai routes for admin
-        Route::resource('pegawai', AdminPegawaiController::class);
+        Route::resource('pegawai', AdminPegawaiController::class)->except(['edit', 'update']);
+        Route::get('pegawai/{id}/edit-akun', [AdminUpdatePegawaiController::class, 'akun'])->name('pegawai.edit.akun');
+        Route::get('pegawai/{id}/edit-keluarga', [AdminUpdatePegawaiController::class, 'keluarga'])->name('pegawai.edit.keluarga');
+        Route::get('pegawai/{id}/edit-pribadi', [AdminUpdatePegawaiController::class, 'pribadi'])->name('pegawai.edit.pribadi');
+        Route::get('pegawai/{id}/edit-pegawai', [AdminUpdatePegawaiController::class, 'pegawai'])->name('pegawai.edit.pegawai');
+        Route::put('pegawai/{id}/update-akun', [AdminUpdatePegawaiController::class, 'updateAkun'])->name('pegawai.update.akun');
+        Route::put('pegawai/{id}/update-keluarga', [AdminUpdatePegawaiController::class, 'updateKeluarga'])->name('pegawai.update.keluarga');
+        Route::put('pegawai/{id}/update-pribadi', [AdminUpdatePegawaiController::class, 'updatePribadi'])->name('pegawai.update.pribadi');
+        Route::put('pegawai/{id}/update-pegawai', [AdminUpdatePegawaiController::class, 'updatePegawai'])->name('pegawai.update.pegawai');
 
         // unit routes for admin
         Route::resource('unit', AdminUnitController::class);
@@ -63,6 +74,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function() {
 
         // laporan routes for admin
         Route::resource('laporan', AdminLaporanController::class);
+
+        // export laporan
+        Route::get('laporan/export-pdf', [ExportController::class, 'laporanPdf'])->name('laporan.export.pdf');
     });
 });
 
@@ -73,7 +87,13 @@ Route::group(['prefix' => 'pegawai', 'middleware' => 'role:pegawai'], function()
         
         // profile routes for pegawai
         Route::get('/profile', [PegawaiProfileController::class, 'index'])->name('profile');
-        Route::put('/profile/{id}', [PegawaiProfileController::class, 'update'])->name('profile.update');
+        Route::get('profile/keluarga', [PegawaiProfileController::class, 'keluarga'])->name('profile.keluarga');
+        Route::get('profile/akun', [PegawaiProfileController::class, 'akun'])->name('profile.akun');
+        Route::get('profile/pegawai', [PegawaiProfileController::class, 'pegawai'])->name('profile.pegawai');
+        Route::put('profile/update-akun', [PegawaiProfileController::class, 'updateAkun'])->name('profile.update.akun');
+        Route::put('profile/update-pribadi', [PegawaiProfileController::class, 'updatePribadi'])->name('profile.update.pribadi');
+        Route::put('profile/update-keluarga', [PegawaiProfileController::class, 'updateKeluarga'])->name('profile.update.keluarga');
+        Route::put('profile/update-pegawai', [PegawaiProfileController::class, 'updatePegawai'])->name('profile.update.pegawai');
 
         // cuti routes for pegawai
         Route::resource('cuti', PegawaiCutiController::class);
@@ -87,6 +107,16 @@ Route::group(['prefix' => 'pegawai', 'middleware' => 'role:pegawai'], function()
 Route::group(['prefix' => 'kepala', 'middleware' => 'role:kepala'], function() {
     Route::name('kepala.')->group(function() {
         Route::get('/dashboard', [KepalaDashboardController::class, 'index'])->name('dashboard');
+
+        // profile routes for kepala
+        Route::get('/profile', [KepalaProfileController::class, 'index'])->name('profile');
+        Route::get('profile/keluarga', [KepalaProfileController::class, 'keluarga'])->name('profile.keluarga');
+        Route::get('profile/akun', [KepalaProfileController::class, 'akun'])->name('profile.akun');
+        Route::get('profile/pegawai', [KepalaProfileController::class, 'pegawai'])->name('profile.pegawai');
+        Route::put('profile/update-akun', [KepalaProfileController::class, 'updateAkun'])->name('profile.update.akun');
+        Route::put('profile/update-pribadi', [KepalaProfileController::class, 'updatePribadi'])->name('profile.update.pribadi');
+        Route::put('profile/update-keluarga', [KepalaProfileController::class, 'updateKeluarga'])->name('profile.update.keluarga');
+        Route::put('profile/update-pegawai', [KepalaProfileController::class, 'updatePegawai'])->name('profile.update.pegawai');
 
         // cuti routes for kepala
         Route::resource('cuti', KepalaCutiController::class);

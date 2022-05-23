@@ -12,7 +12,10 @@
 
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <div class="card">
+
+            <a href="{{ route('admin.unit.index') }}"><i class="fa fa-chevron-left"></i> Kembali</a>
+
+            <div class="card mt-3">
                 <div class="card-body">
                     <form action="{{ route('admin.unit.update', ['unit' => $unit->id]) }}" method="POST">
                         @method('PUT')
@@ -40,9 +43,9 @@
                             <div class="form-group">
                                 <label for="pegawai_id" class="form-label">Kepala Unit</label>
                                 <select name="pegawai_id" id="pegawai_id" class="choices form-select">
-                                    <option value="">Ardi</option>
-                                    <option value="">dika</option>
-                                    <option value="">lis</option>
+                                    @foreach ($pegawai as $pg)
+                                        <option value="{{ $pg->id }}" {{ $pg->kepala_id != null ? 'selected' : '' }}>{{ $pg->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

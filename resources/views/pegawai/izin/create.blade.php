@@ -11,13 +11,16 @@
 
     <div class="row justify-content-center">
         <div class="col-md-10">
+
+            <a href="{{ route('pegawai.izin.index') }}"><i class="fa fa-chevron-left"></i> Kembali</a>
+
             <form action="{{ $url }}" method="POST">
                 @csrf
                 @if ($page == 'Edit')
                     @method('PUT')
                 @endif
                 
-                <div class="card">
+                <div class="card mt-3">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="jenis" class="form-label">Jenis Izin <span class="text-primary">*</span></label>

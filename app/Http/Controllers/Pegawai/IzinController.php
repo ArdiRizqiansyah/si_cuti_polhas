@@ -62,7 +62,7 @@ class IzinController extends Controller
             'status' => 3,
             'pegawai_id' => auth()->user()->pegawai->id,
             // 'pengganti_id' => $request->pengganti_id,
-            'unit_id' => auth()->user()->pegawai->pegawaiUnit->unit_id,
+            'unit_id' => auth()->user()->pegawai->unit_id,
         ];
 
         Izin::create($data);

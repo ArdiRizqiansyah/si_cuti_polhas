@@ -23,6 +23,7 @@ class User extends Authenticatable
         'username',
         'password',
         'role_id',
+        'avatar',
     ];
 
     /**
@@ -53,5 +54,14 @@ class User extends Authenticatable
     public function pegawai()
     {
         return $this->hasOne(Pegawai::class, 'user_id');
+    }
+
+    public function getGetFotoAttribute()
+    {
+        if($this->attributes['avatar']){
+            return asset('storage/avatar/'. $this->attributes['avatar']);
+        }else{
+            return asset('assets/images/logo/favicon.png');
+        }
     }
 }

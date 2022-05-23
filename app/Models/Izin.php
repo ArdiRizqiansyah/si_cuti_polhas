@@ -52,11 +52,18 @@ class Izin extends Model
             ->orWhere('tgl_akhir', 'like', "%{$filter}%");
     }
 
-    public function scopeFilterLaporan($query, $tgl_mulai, $tgl_akhir)
+    public function scopeFilterBetweenDate($query, $tgl_mulai, $tgl_akhir)
     {
-        $query->where('tgl_mulai', '>=', $tgl_mulai)
-            ->where('tgl_mulai', '<=', $tgl_akhir)
-            ->where('tgl_akhir', '<=', $tgl_mulai)
-            ->where('tgl_akhir', '<=', $tgl_akhir);
+        $query->when($tgl_mulai, function ($query) use ($tgl_mulai) {
+            return $query->where('tgl_mulai', '>=', $tgl_mulai);
+        })->when($tgl_akhir, function ($query) use ($tgl_akhir) {
+            return $query->where('tgl_akhir', '<=', $tgl_akhir);
+        });
+    }
+
+    // mutator
+    public function getGetTglPengajuanAttribute()
+    {
+        return date('Y-m-d', strtotime($this->created_at));
     }
 }

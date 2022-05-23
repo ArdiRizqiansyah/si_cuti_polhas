@@ -16,7 +16,7 @@ class LaporanController extends Controller
     public function index(Request $request)
     {
         $data = [
-            'laporan' => Izin::joinPegawai()->filter($request->keyword)->paginate(10),
+            'laporan' => Izin::joinPegawai()->filter($request->keyword)->filterBetweenDate($request->tgl_mulai, $request->tgl_akhir)->paginate(10),
         ];
 
         return view('admin.laporan.index', $data);

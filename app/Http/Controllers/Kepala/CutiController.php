@@ -16,8 +16,7 @@ class CutiController extends Controller
      */
     public function index(Request $request)
     {
-        $unit = Unit::where('pegawai_id', auth()->user()->pegawai->id)->first();
-        $cuti = Izin::where('unit_id', $unit->id)->joinCuti()->filter($request->keyword)->paginate(10);
+        $cuti = Izin::where('izin.unit_id', auth()->user()->pegawai->kepala_id)->joinCuti()->filter($request->keyword)->paginate(10);
 
         $data = [
             'cuti' => $cuti,

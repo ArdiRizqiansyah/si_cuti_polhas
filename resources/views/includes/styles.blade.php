@@ -5,3 +5,5 @@
 <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
 <link rel="stylesheet" href="{{ asset('assets/css/shared/iconly.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/pages/dripicons.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/pages/fontawesome.css') }}">

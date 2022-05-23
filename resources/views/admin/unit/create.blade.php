@@ -94,11 +94,11 @@
 
                         <div class="pegawai-lama">
                             <div class="form-group">
-                                <label for="pegawai_id" class="form-label">Pilih Pegawai</label>
+                                <label for="pegawai_id" class="form-label">Pilih Kepala Unit</label>
                                 <select name="pegawai_id" id="pegawai_id" class="choices form-select">
-                                    <option value="">Ardi</option>
-                                    <option value="">dika</option>
-                                    <option value="">lis</option>
+                                    @foreach ($pegawai as $pg)
+                                        <option value="{{ $pg->id }}">{{ $pg->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -15,12 +15,12 @@ class Unit extends Model
     // eloquent relation
     public function pegawai()
     {
-        return $this->belongsTo(Pegawai::class, 'pegawai_id');
+        return $this->hasMany(Pegawai::class, 'unit_id');
     }
 
-    public function pegawai_unit()
+    public function kepala()
     {
-        return $this->hasMany(PegawaiUnit::class, 'unit_id');
+        return $this->hasOne(Pegawai::class, 'kepala_id');
     }
 
     public function izin()

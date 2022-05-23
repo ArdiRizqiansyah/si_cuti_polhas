@@ -1,70 +1,72 @@
 <?php
 
-namespace App\Http\Controllers\Pegawai;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pegawai;
-use App\Models\PegawaiUnit;
 use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ProfileController extends Controller
+class UpdatePegawaiController extends Controller
 {
-    public function index()
+    public function pribadi($id)
     {
-        $profile = Pegawai::with(['user', 'unit'])->find(auth()->user()->pegawai->id);
+        $profile = Pegawai::with(['user', 'unit'])->find($id);
 
         $data =[
             'profile' => $profile,
         ];
 
-        return view('pegawai.profile.data_pribadi', $data);
+        return view('admin.pegawai.edit.pribadi', $data);
     }
 
-    public function keluarga()
+    public function keluarga($id)
     {
-        $profile = Pegawai::with(['user', 'unit'])->find(auth()->user()->pegawai->id);
+        $profile = Pegawai::with(['user', 'unit'])->find($id);
 
         $data =[
             'profile' => $profile,
         ];
 
-        return view('pegawai.profile.data_keluarga', $data);
+        return view('admin.pegawai.edit.keluarga', $data);
     }
 
-    public function akun()
+    public function akun($id)
     {
-        $profile = Pegawai::with(['user', 'unit'])->find(auth()->user()->pegawai->id);
+        $profile = Pegawai::with(['user', 'unit'])->find($id);
 
         $data =[
             'profile' => $profile,
         ];
 
-        return view('pegawai.profile.data_akun', $data);
+        return view('admin.pegawai.edit.akun', $data);
     }
 
-    public function pegawai()
+    public function pegawai($id)
     {
-        $profile = Pegawai::with(['user', 'unit'])->find(auth()->user()->pegawai->id);
+        $profile = Pegawai::with(['user', 'unit'])->find($id);
 
         $data =[
             'profile' => $profile,
             'units' => Unit::all(),
         ];
 
-        return view('pegawai.profile.data_pegawai', $data);
+        return view('admin.pegawai.edit.pegawai', $data);
     }
 
-    public function updatePribadi(Request $request)
+    public function updatePribadi($id, Request $request)
     {
+        // cari pegawai
+        $pegawai = Pegawai::find($id);
+
         $data_user = [
             'nama' => $request->nama,
         ];
 
         // cari user
-        $user = User::find(auth()->user()->id);
+        $user = User::find($pegawai->user_id);
 
         // update data user
         $user->update($data_user);
@@ -89,19 +91,16 @@ class ProfileController extends Controller
             'no_rekening' => $request->norek,
         ];
 
-        // cari pegawai
-        $pegawai = Pegawai::where('user_id', $user->id)->first();
-
         // update data pegawai
         $pegawai->update($data_pegawai);
 
         return back()->with('success', 'Data berhasil diubah');
     }
 
-    public function updateKeluarga(Request $request)
+    public function updateKeluarga($id, Request $request)
     {
         // cari pegawai
-        $pegawai = Pegawai::where('user_id', auth()->user()->id)->first();
+        $pegawai = Pegawai::find($id);
 
         // data pegawai
         $data_pegawai = [
@@ -119,10 +118,13 @@ class ProfileController extends Controller
         return back()->with('success', 'Data berhasil diubah');
     }
 
-    public function updateAkun(Request $request)
+    public function updateAkun($id, Request $request)
     {
+        // cari pegawai
+        $pegawai = Pegawai::find($id);
+
         // cari user
-        $user = User::find(auth()->user()->id);
+        $user = User::find($pegawai->user_id);
 
         $rules = [];
 
@@ -171,16 +173,22 @@ class ProfileController extends Controller
         return back()->with('success', 'Data berhasil diubah');
     }
 
-    public function updatePegawai(Request $request)
+    public function updatePegawai($id, Request $request)
     {
         // cari pegawai
-        $pegawai = Pegawai::where('user_id', auth()->user()->id)->first();
+        $pegawai = Pegawai::where($id)->first();
 
         // data pegawai
         $data_pegawai = [
             'jenjang_kepangkatan' => $request->jen_pangkat,
             'npwp' => $request->npwp,
-            'nidn' => $request->nidn, 
+            'nidn' => $request->nidn,
+            'nrp'  => $request->nrp,
+            'jabatan' => $request->jabatan,
+            'unit_id' => $request->unit_id,
+            'tgl_kontrak_pkwt_1' => $request->tgl_pkwt_1,
+            'tgl_kontrak_pkwt_2' => $request->tgl_pkwt_2,
+            'tgl_sk_tetap' => $request->tgl_sk,
         ];
 
         // update data ke pegawai

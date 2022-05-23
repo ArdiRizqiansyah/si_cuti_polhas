@@ -14,7 +14,6 @@
             <div class="card">
                 <div class="card-body">
                     <form action="{{ route('admin.laporan.index') }}" method="GET">
-                        @csrf
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -29,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 align-self-end pb-2 mb-0 mb-md-1">
-                                <button type="submit" class="btn btn-secondary">Lihat Laporan</button>
+                                <button type="submit" class="btn btn-secondary">Filter Laporan</button>
                             </div>
                         </div>
                     </form>
@@ -44,14 +43,14 @@
                 <div class="card-body">
                     <div class="row mb-3 justify-content-between">
                         <div class="col-md-4 mb-2 mb-md-0">
-                            <a href="#" class="btn btn-warning">Export to excel</a>
+                            <a href="{{ route('admin.laporan.export.pdf', ['tgl_mulai' => @$_GET['tgl_mulai'], 'tgl_selesai' => @$_GET['tgl_akhir']]) }}" class="btn btn-warning"><i class="fas fa-print"></i> Cetak Laporan</a>
                         </div>
                         <div class="col-md-4">
                             <form action="{{ route('admin.laporan.index') }}" method="get">
                                 <div class="input-group">
                                     <input type="text" name="keyword" class="form-control" placeholder="Cari laporan">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">Cari</button>
+                                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Cari</button>
                                     </div>
                                 </div>
                             </form>
@@ -79,7 +78,7 @@
                                                 <td>{{ $lap->pegawai->nrp }}</td>
                                                 <td>{{ $lap->pegawai->nama }}</td>
                                                 <td>{{ $lap->jenis }}</td>
-                                                <td>{{ $lap->created_at }}</td>
+                                                <td>{{ $lap->getTglPengajuan }}</td>
                                                 <td>{{ $lap->tgl_mulai }}</td>
                                                 <td>{{ $lap->tgl_akhir }}</td>
                                                 <td>{{ $lap->pengganti->nama ?? 'Tidak Ada' }}</td>
@@ -95,7 +94,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="8" class="text-center">Tidak ada data</td>
+                                                <td colspan="9" class="text-center">Tidak ada data</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

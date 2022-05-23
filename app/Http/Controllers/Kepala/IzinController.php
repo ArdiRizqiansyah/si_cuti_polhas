@@ -16,8 +16,7 @@ class IzinController extends Controller
      */
     public function index(Request $request)
     {
-        $unit = Unit::where('pegawai_id', auth()->user()->pegawai->id)->first();
-        $izin = Izin::where('unit_id', $unit->id)->joinIzin()->filter($request->keyword)->paginate(10);
+        $izin = Izin::where('izin.unit_id', auth()->user()->pegawai->kepala_id)->joinIzin()->filter($request->keyword)->paginate(10);
 
         $data = [
             'izin' => $izin,

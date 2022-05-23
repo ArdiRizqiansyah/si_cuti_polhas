@@ -11,13 +11,16 @@
 
     <div class="row justify-content-center">
         <div class="col-md-10">
+
+            <a href="{{ route('pegawai.cuti.index') }}"><i class="fa fa-chevron-left"></i> Kembali</a>
+
             <form action="{{ $url }}" method="POST">
                 @csrf
                 @if ($page == 'Edit')
                     @method('PUT')
                 @endif
                 
-                <div class="card">
+                <div class="card mt-3">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="jenis" class="form-label">Jenis Izin <span class="text-primary">*</span></label>
@@ -50,7 +53,7 @@
                             <label for="pengganti_id" class="form-label">Pengganti</label>
                             <select name="pengganti_id" id="pengganti_id" class="choices form-select" required>
                                 @foreach ($pengganti as $pen)
-                                    <option value="{{ $pen->pegawai->id }}" value="{{ old('pengganti_id') == $pen->pegawai->id ? 'selected' : '' }}">{{ $pen->pegawai->nama }}</option>
+                                    <option value="{{ $pen->id }}" value="{{ old('pengganti_id') == $pen->id ? 'selected' : '' }}">{{ $pen->nama }}</option>
                                 @endforeach
                             </select>
                         </div>

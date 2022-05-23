@@ -24,6 +24,11 @@ class Pegawai extends Model
         return $this->belongsTo(Unit::class, 'unit_id');
     }
 
+    public function kepala()
+    {
+    return $this->belongsTo(Unit::class, 'kepala_id');
+    }
+
     public function izin()
     {
         return $this->hasMany(Izin::class, 'pegawai_id')->where('permohonan', 1);
@@ -32,12 +37,6 @@ class Pegawai extends Model
     public function cuti()
     {
         return $this->hasMany(Izin::class, 'pegawai_id')->where('permohonan', 2);
-    }
-
-
-    public function pegawaiUnit()
-    {
-        return $this->hasOne(PegawaiUnit::class, 'pegawai_id');
     }
 
     // scope seacrh pegawai

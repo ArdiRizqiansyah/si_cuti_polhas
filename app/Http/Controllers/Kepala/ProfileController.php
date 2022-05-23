@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Pegawai;
+namespace App\Http\Controllers\Kepala;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pegawai;
-use App\Models\PegawaiUnit;
 use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +19,7 @@ class ProfileController extends Controller
             'profile' => $profile,
         ];
 
-        return view('pegawai.profile.data_pribadi', $data);
+        return view('kepala.profile.data_pribadi', $data);
     }
 
     public function keluarga()
@@ -31,7 +30,7 @@ class ProfileController extends Controller
             'profile' => $profile,
         ];
 
-        return view('pegawai.profile.data_keluarga', $data);
+        return view('kepala.profile.data_keluarga', $data);
     }
 
     public function akun()
@@ -42,7 +41,7 @@ class ProfileController extends Controller
             'profile' => $profile,
         ];
 
-        return view('pegawai.profile.data_akun', $data);
+        return view('kepala.profile.data_akun', $data);
     }
 
     public function pegawai()
@@ -54,7 +53,7 @@ class ProfileController extends Controller
             'units' => Unit::all(),
         ];
 
-        return view('pegawai.profile.data_pegawai', $data);
+        return view('kepala.profile.data_pegawai', $data);
     }
 
     public function updatePribadi(Request $request)

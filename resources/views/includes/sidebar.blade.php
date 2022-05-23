@@ -88,6 +88,12 @@
                 @endif
 
                 @if (auth()->user()->role_id == 2)
+                    <li class="sidebar-item {{ request()->is('*/profile*') ? 'active' : '' }}">
+                        <a href="{{ route('kepala.profile') }}" class='sidebar-link'>
+                            <i class="bi bi-person"></i>
+                            <span>Data Diri</span>
+                        </a>
+                    </li>
                     <li class="sidebar-item {{ request()->is('*/cuti*') ? 'active' : '' }}">
                         <a href="{{ route('kepala.cuti.index') }}" class='sidebar-link'>
                             <i class="bi bi-ui-checks-grid"></i>

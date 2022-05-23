@@ -45,7 +45,7 @@
                         </div>
                         <div class="user-img d-flex align-items-center">
                             <div class="avatar avatar-md">
-                                <img src="{{ asset('assets/images/logo/favicon.png') }}" class="img-thumbnail">
+                                <img src="{{ auth()->user()->getFoto }}" class="img-thumbnail">
                             </div>
                         </div>
                     </div>

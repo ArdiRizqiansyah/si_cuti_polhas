@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pegawai;
 
 use App\Http\Controllers\Controller;
 use App\Models\Izin;
+use App\Models\Pegawai;
 use App\Models\PegawaiUnit;
 use Illuminate\Http\Request;
 
@@ -32,13 +33,12 @@ class CutiController extends Controller
      */
     public function create()
     {
-        $pegawai_id = auth()->user()->pegawai->id;
-        $unit = PegawaiUnit::where('pegawai_id', $pegawai_id)->first();
+        $unit_id = auth()->user()->pegawai->unit_id;
 
         $data = [
             'page' => 'Tambah',
             'url' => route('pegawai.cuti.store'),
-            'pengganti' => PegawaiUnit::with(['pegawai'])->where('unit_id', $unit->unit_id)->where('pegawai_id', '!=', $pegawai_id)->get(),
+            'pengganti' => Pegawai::where('unit_id', $unit_id)->where('kepala_id', null)->where('user_id', '!=', auth()->user()->id)->get(),
         ];
 
         return view('pegawai.cuti.create', $data);
@@ -67,7 +67,7 @@ class CutiController extends Controller
             'status' => 3,
             'pegawai_id' => auth()->user()->pegawai->id,
             'pengganti_id' => $request->pengganti_id,
-            'unit_id' => auth()->user()->pegawai->pegawaiUnit->unit_id,
+            'unit_id' => auth()->user()->pegawai->unit_id,
         ];
 
         Izin::create($data);
@@ -94,14 +94,13 @@ class CutiController extends Controller
      */
     public function edit($id)
     {
-        $pegawai_id = auth()->user()->pegawai->id;
-        $unit = PegawaiUnit::where('pegawai_id', $pegawai_id)->first();
+        $unit_id = auth()->user()->pegawai->unit_id;
 
         $data = [
             'cuti' => Izin::find($id),
             'page' => 'Edit',
             'url' => route('pegawai.cuti.update', $id),
-            'pengganti' => PegawaiUnit::with(['pegawai'])->where('unit_id', $unit->unit_id)->where('pegawai_id', '!=', $pegawai_id)->get(),
+            'pengganti' => Pegawai::where('unit_id', $unit_id)->where('kepala_id', null)->where('user_id', '!=', auth()->user()->id)->get(),
         ];
 
         return view('pegawai.cuti.create', $data);
