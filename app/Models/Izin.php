@@ -61,6 +61,19 @@ class Izin extends Model
         });
     }
 
+    public function scopeGroupByMonth($query)
+    {
+        $query->selectRaw('count(*) as jumlah, month(tgl_mulai) as bulan')
+            ->groupBy('bulan');
+    }
+
+    public function scopeFilterYear($query, $year)
+    {
+        $query->when($year, function ($query) use ($year) {
+            return $query->whereYear('created_at', $year);
+        });
+    }
+
     // mutator
     public function getGetTglPengajuanAttribute()
     {

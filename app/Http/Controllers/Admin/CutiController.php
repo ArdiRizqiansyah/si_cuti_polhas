@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Izin;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 
 class CutiController extends Controller
@@ -29,7 +30,7 @@ class CutiController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -40,7 +41,7 @@ class CutiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -60,9 +61,20 @@ class CutiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+        $unit_id = $request->unit_id;
+
+        $cuti = Izin::find($id);
+
+        $data = [
+            'cuti' => $cuti,
+            'page' => 'Edit',
+            'url' => route('admin.cuti.update', $id),
+            'pengganti' => Pegawai::where('unit_id', $unit_id)->where('kepala_id', null)->where('id', '!=', $cuti->pegawai_id)->get(),
+        ];
+
+        return view('admin.cuti.create', $data);
     }
 
     /**
@@ -74,7 +86,29 @@ class CutiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cuti = Izin::find($id);
+
+        if($cuti->status != 3){
+            return redirect()->route('admin.cuti.index')->with('error', 'Cuti tidak dapat diubah');
+        }
+
+        $request->validate([
+            'jenis' => 'required',
+            'tgl_mulai' => 'required|before:tgl_akhir',
+            'tgl_akhir' => 'required',
+            'pengganti_id' => 'required',
+        ]);
+
+        $data = [
+            'jenis' => $request->jenis,
+            'tgl_mulai' => $request->tgl_mulai,
+            'tgl_akhir' => $request->tgl_akhir,
+            'pengganti_id' => $request->pengganti_id,
+        ];
+
+        $cuti->update($data);
+
+        return redirect()->route('admin.cuti.index')->with('success', 'Cuti berhasil diubah');
     }
 
     /**

@@ -76,7 +76,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function() {
         Route::resource('laporan', AdminLaporanController::class);
 
         // export laporan
-        Route::get('laporan/export-pdf', [ExportController::class, 'laporanPdf'])->name('laporan.export.pdf');
+        Route::get('download_pdf', [ExportController::class, 'laporan_pdf'])->name('laporan.export.pdf');
     });
 });
 

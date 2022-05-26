@@ -62,7 +62,13 @@ class IzinController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'izin' => Izin::find($id),
+            'page' => 'Edit',
+            'url' => route('admin.izin.update', $id),
+        ];
+
+        return view('admin.izin.create', $data);
     }
 
     /**
@@ -74,7 +80,29 @@ class IzinController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $izin = Izin::find($id);
+
+        if($izin->status != 3){
+            return redirect()->route('admin.izin.index')->with('error', 'Izin tidak dapat diubah');
+        }
+
+        $request->validate([
+            'jenis' => 'required',
+            'tgl_mulai' => 'required|before:tgl_akhir',
+            'tgl_akhir' => 'required',
+            // 'pengganti_id' => 'required',
+        ]);
+
+        $data = [
+            'jenis' => $request->jenis,
+            'tgl_mulai' => $request->tgl_mulai,
+            'tgl_akhir' => $request->tgl_akhir,
+            // 'pengganti_id' => $request->pengganti_id,
+        ];
+
+        $izin->update($data);
+
+        return redirect()->route('admin.izin.index', $izin->pegawai_id)->with('success', 'Izin berhasil diubah');
     }
 
     /**

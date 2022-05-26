@@ -59,7 +59,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    {{-- <a href="#" class="btn btn-success">Ubah</a> --}}
+                                                    <a href="{{ route('admin.izin.edit', ['izin' => $i->id, 'unit_id' => $i->unit_id]) }}" class="btn btn-success"><i class="far fa-edit me-1"></i>Ubah</a>
                                                     <button onclick="hapusData('{{ route('admin.izin.destroy', ['izin' => $i->id]) }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="far fa-trash-alt me-1"></i>Hapus</button>
                                                 </td>
                                             </tr>
