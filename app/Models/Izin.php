@@ -79,4 +79,9 @@ class Izin extends Model
     {
         return date('Y-m-d', strtotime($this->created_at));
     }
+
+    public function getGetDokumenAttribute()
+    {
+        return asset('storage/dokumen/'. $this->dokumen);
+    }
 }

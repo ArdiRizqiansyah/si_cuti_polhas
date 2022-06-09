@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pegawai;
 use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class IzinController extends Controller
 {
@@ -64,6 +65,13 @@ class IzinController extends Controller
             // 'pengganti_id' => $request->pengganti_id,
             'unit_id' => auth()->user()->pegawai->unit_id,
         ];
+
+        // cek dokumen
+        if ($request->file('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $dokumen->storeAs('public/dokumen', $dokumen->hashName());
+            $data['dokumen'] = $dokumen->hashName();
+        }
 
         Izin::create($data);
 
@@ -133,6 +141,19 @@ class IzinController extends Controller
             // 'pengganti_id' => $request->pengganti_id,
         ];
 
+        // cek dokumen
+        if ($request->file('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $dokumen->storeAs('public/dokumen', $dokumen->hashName());
+
+            // hapus dokumen lama
+            if ($izin->dokumen) {
+                Storage::delete('public/dokumen/' . $izin->dokumen);
+            }
+
+            $data['dokumen'] = $dokumen->hashName();
+        }
+
         $izin->update($data);
 
         return redirect()->route('pegawai.izin.index', $izin->pegawai_id)->with('success', 'Izin berhasil diubah');
@@ -150,6 +171,11 @@ class IzinController extends Controller
 
         if($izin->status != 3){
             return redirect()->route('pegawai.izin.index')->with('error', 'Izin tidak dapat dihapus');
+        }
+
+        // hapus dokumen lama
+        if ($izin->dokumen) {
+            Storage::delete('public/dokumen/' . $izin->dokumen);
         }
 
         $izin->delete();

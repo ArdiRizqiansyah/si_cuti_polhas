@@ -9,6 +9,7 @@ use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -163,6 +164,11 @@ class ProfileController extends Controller
             $image = $request->file('avatar');
             $image->storeAs('public/avatar', $image->hashName());
             $data_user['avatar'] = $image->hashName();
+            
+            // hapus avatar lama
+            if ($user->avatar) {
+                Storage::delete('public/avatar/' . $user->avatar);
+            }
         }
 
         // update data ke user

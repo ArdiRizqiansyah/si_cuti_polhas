@@ -69,6 +69,7 @@
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
                                         <th>Pengganti</th>
+                                        <th>Dokumen</th>
                                         <th>Status</th>
                                     </thead>
                                     <tbody>
@@ -82,6 +83,13 @@
                                                 <td>{{ $lap->tgl_mulai }}</td>
                                                 <td>{{ $lap->tgl_akhir }}</td>
                                                 <td>{{ $lap->pengganti->nama ?? 'Tidak Ada' }}</td>
+                                                <td>
+                                                    @if ($lap->dokumen)
+                                                        <a href="{{ $lap->getDokumen }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Lihat</a>
+                                                    @else
+                                                        <span class="text-muted">Tidak ada dokumen</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($lap->status == 1)
                                                         <span class="badge bg-success">Disetujui</span>

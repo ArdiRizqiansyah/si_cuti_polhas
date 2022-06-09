@@ -37,6 +37,7 @@
                                         <th>Jenis Izin</th>
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
+                                        <th>Dokumen</th>
                                         <th>Aksi</th>
                                     </thead>
                                     <tbody>
@@ -48,6 +49,13 @@
                                                 <td>{{ $i->jenis }}</td>
                                                 <td>{{ $i->tgl_mulai }}</td>
                                                 <td>{{ $i->tgl_akhir }}</td>
+                                                <td>
+                                                    @if ($i->dokumen)
+                                                        <a href="{{ $i->getDokumen }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Lihat</a>
+                                                    @else
+                                                        <span class="text-muted">Tidak ada dokumen</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($i->status == 1)
                                                         <span class="badge bg-success">Berhasil disetujui</span>

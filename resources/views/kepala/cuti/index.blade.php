@@ -38,6 +38,7 @@
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
                                         <th>Pengganti</th>
+                                        <th>Dokumen</th>
                                         <th>Aksi</th>
                                     </thead>
                                     <tbody>
@@ -50,6 +51,13 @@
                                                 <td>{{ $c->tgl_mulai }}</td>
                                                 <td>{{ $c->tgl_akhir }}</td>
                                                 <td>{{ $c->pengganti->nama }}</td>
+                                                <td>
+                                                    @if ($c->dokumen)
+                                                        <a href="{{ $c->getDokumen }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Lihat</a>
+                                                    @else
+                                                        <span class="text-muted">Tidak ada dokumen</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($c->status == 1)
                                                         <span class="badge bg-success">Berhasil disetujui</span>

@@ -14,7 +14,7 @@
 
             <a href="{{ route('admin.izin.index') }}"><i class="fa fa-chevron-left"></i> Kembali</a>
 
-            <form action="{{ $url }}" method="POST">
+            <form action="{{ $url }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if ($page == 'Edit')
                     @method('PUT')
@@ -48,6 +48,18 @@
                                     {{ $message }}
                                 </div>
                             @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="dokumen" class="form-label">Dokumen</label>
+                            @if ($page == 'Edit')
+                                <p class="mb-2 text-muted">Kosongkan jika tidak ada perubahan</p>
+                            @endif
+                            @error('dokumen')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            <input type="file" name="dokumen" id="dokumen" class="form-control @error('dokumen') is-invalid @enderror">
                         </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Simpan</button>

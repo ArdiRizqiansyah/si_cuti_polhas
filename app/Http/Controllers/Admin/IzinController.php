@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class IzinController extends Controller
 {
@@ -100,6 +101,19 @@ class IzinController extends Controller
             // 'pengganti_id' => $request->pengganti_id,
         ];
 
+        // cek dokumen
+        if ($request->file('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $dokumen->storeAs('public/dokumen', $dokumen->hashName());
+
+            // hapus dokumen lama
+            if ($izin->dokumen) {
+                Storage::delete('public/dokumen/' . $izin->dokumen);
+            }
+
+            $data['dokumen'] = $dokumen->hashName();
+        }
+
         $izin->update($data);
 
         return redirect()->route('admin.izin.index', $izin->pegawai_id)->with('success', 'Izin berhasil diubah');
@@ -121,6 +135,11 @@ class IzinController extends Controller
         }elseif($izin->status == 2){
             return back()->with('error', 'Izin sudah ditolak Kepala Unit');
         }else{
+            // hapus dokumen lama
+            if ($izin->dokumen) {
+                Storage::delete('public/dokumen/' . $izin->dokumen);
+            }
+
             $izin->delete();
             return back()->with('success', 'Izin berhasil dihapus');
         }

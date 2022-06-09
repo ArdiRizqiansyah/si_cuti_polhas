@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CutiController extends Controller
 {
@@ -106,6 +107,19 @@ class CutiController extends Controller
             'pengganti_id' => $request->pengganti_id,
         ];
 
+        // cek dokumen
+        if ($request->file('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $dokumen->storeAs('public/dokumen', $dokumen->hashName());
+
+            // hapus dokumen lama
+            if ($cuti->dokumen) {
+                Storage::delete('public/dokumen/' . $cuti->dokumen);
+            }
+
+            $data['dokumen'] = $dokumen->hashName();
+        }
+
         $cuti->update($data);
 
         return redirect()->route('admin.cuti.index')->with('success', 'Cuti berhasil diubah');
@@ -127,6 +141,11 @@ class CutiController extends Controller
         }elseif($izin->status == 2){
             return back()->with('error', 'Cuti sudah ditolak Kepala Unit');
         }else{
+            // hapus dokumen lama
+            if ($izin->dokumen) {
+                Storage::delete('public/dokumen/' . $izin->dokumen);
+            }
+
             $izin->delete();
             return back()->with('success', 'Cuti berhasil dihapus');
         }

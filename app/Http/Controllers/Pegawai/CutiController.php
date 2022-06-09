@@ -7,6 +7,7 @@ use App\Models\Izin;
 use App\Models\Pegawai;
 use App\Models\PegawaiUnit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CutiController extends Controller
 {
@@ -69,6 +70,13 @@ class CutiController extends Controller
             'pengganti_id' => $request->pengganti_id,
             'unit_id' => auth()->user()->pegawai->unit_id,
         ];
+
+        // cek dokumen
+        if ($request->file('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $dokumen->storeAs('public/dokumen', $dokumen->hashName());
+            $data['dokumen'] = $dokumen->hashName();
+        }
 
         Izin::create($data);
 
@@ -135,6 +143,19 @@ class CutiController extends Controller
             'pengganti_id' => $request->pengganti_id,
         ];
 
+        // cek dokumen
+        if ($request->file('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $dokumen->storeAs('public/dokumen', $dokumen->hashName());
+
+            // hapus dokumen lama
+            if ($cuti->dokumen) {
+                Storage::delete('public/dokumen/' . $cuti->dokumen);
+            }
+
+            $data['dokumen'] = $dokumen->hashName();
+        }
+
         $cuti->update($data);
 
         return redirect()->route('pegawai.cuti.index', $cuti->pegawai_id)->with('success', 'Cuti berhasil diubah');
@@ -152,6 +173,11 @@ class CutiController extends Controller
 
         if($cuti->status != 3){
             return redirect()->route('pegawai.cuti.index')->with('error', 'Cuti tidak dapat dihapus');
+        }
+
+        // hapus dokumen jika ada
+        if ($cuti->dokumen) {
+            Storage::disk('local')->delete('public/dokumen/' . $cuti->dokumen);
         }
 
         $cuti->delete();

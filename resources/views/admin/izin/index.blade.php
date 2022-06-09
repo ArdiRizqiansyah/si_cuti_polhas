@@ -37,6 +37,7 @@
                                         <th>Jenis Cuti</th>
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
+                                        <th>Dokumen</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </thead>
@@ -50,6 +51,13 @@
                                                 <td>{{ $i->tgl_mulai }}</td>
                                                 <td>{{ $i->tgl_akhir }}</td>
                                                 <td>
+                                                    @if ($i->dokumen)
+                                                        <a href="{{ $i->getDokumen }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Lihat</a>
+                                                    @else
+                                                        <span class="text-muted">Tidak ada dokumen</span>
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     @if ($i->status == 1)
                                                         <span class="badge bg-success">Disetujui</span>
                                                     @elseif ($i->status == 2)
@@ -58,7 +66,7 @@
                                                         <span class="badge bg-info">Menunggu Persetujuan</span>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-nowrap">
                                                     <a href="{{ route('admin.izin.edit', ['izin' => $i->id, 'unit_id' => $i->unit_id]) }}" class="btn btn-success"><i class="far fa-edit me-1"></i>Ubah</a>
                                                     <button onclick="hapusData('{{ route('admin.izin.destroy', ['izin' => $i->id]) }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="far fa-trash-alt me-1"></i>Hapus</button>
                                                 </td>
