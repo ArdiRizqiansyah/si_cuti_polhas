@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use App\Models\Pegawai;
 use App\Models\PegawaiUnit;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,7 +20,7 @@ class CutiController extends Controller
     public function index(Request $request)
     {
         $cuti = Izin::with('pegawai')->joinCuti()->where('pegawai_id', auth()->user()->pegawai->id)->filter($request->keyword)->paginate(10);
-
+        $user = User::all();
         $data = [
             'cuti' => $cuti,
         ];
