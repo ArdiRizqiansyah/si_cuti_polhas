@@ -94,7 +94,7 @@ class Izin extends Model
     public function getGetJumlahHariAttribute()
     {
         $start = Carbon::parse($this->tgl_mulai);
-        $end = Carbon::parse($this->tgl_selesai);
+        $end = Carbon::parse($this->tgl_akhir);
         $result = $start->diffInDays($end);
 
         return $result;
