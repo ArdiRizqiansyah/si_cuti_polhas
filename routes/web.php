@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\CutiController AS AdminCutiController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\IzinController AS AdminIzinController;
 use App\Http\Controllers\Admin\LaporanController AS AdminLaporanController;
-
+use App\Http\Controllers\Admin\SaldoController AS AdminSaldoController;
 // controller pegawai
 use App\Http\Controllers\Pegawai\DashboardController AS PegawaiDashboardController;
 use App\Http\Controllers\Pegawai\ProfileController AS PegawaiProfileController;
@@ -24,6 +24,7 @@ use App\Http\Controllers\Kepala\DashboardController AS KepalaDashboardController
 use App\Http\Controllers\Kepala\ProfileController AS KepalaProfileController;
 use App\Http\Controllers\Kepala\CutiController AS KepalaCutiController;
 use App\Http\Controllers\Kepala\IzinController AS KepalaIzinController;
+use App\Http\Controllers\Kepala\SaldoController AS KepalaSaldoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function() {
         // laporan routes for admin
         Route::resource('laporan', AdminLaporanController::class);
 
+        // saldo routes for admin
+        Route::get('saldo', [AdminSaldoController::class, 'index'])->name('saldo');
+        Route::post('saldo/update', [AdminSaldoController::class, 'updateSaldo'])->name('saldo.update');
+
         // export laporan
         Route::get('download_pdf', [ExportController::class, 'laporan_pdf'])->name('laporan.export.pdf');
     });
@@ -123,5 +128,8 @@ Route::group(['prefix' => 'kepala', 'middleware' => 'role:kepala'], function() {
 
         // izin routes for kepala
         Route::resource('izin', KepalaIzinController::class);
+
+        // saldo routes for kepala
+        Route::get('saldo', [KepalaSaldoController::class, 'index'])->name('saldo');
     });
 });

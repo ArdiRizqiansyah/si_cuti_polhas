@@ -41,7 +41,7 @@
                                         <th>Jenis Cuti</th>
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
-                                        <th>Sisa Waktu</th>
+                                        <th>Jumlah Hari</th>
                                         <th>Dokumen</th>
                                         <th>Formulir</th>
                                         <th>Status</th>
@@ -56,7 +56,7 @@
                                                 <td>{{ $c->jenis }}</td>
                                                 <td>{{ $c->tgl_mulai }}</td>
                                                 <td>{{ $c->tgl_akhir }}</td>
-                                                <td>{{ $c->getSisaHari }}</td>
+                                                <td>{{ $c->getJumlahHari }} Hari</td>
                                                 <td>
                                                     @if ($c->dokumen)
                                                         <a href="{{ $c->getDokumen }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Lihat</a>

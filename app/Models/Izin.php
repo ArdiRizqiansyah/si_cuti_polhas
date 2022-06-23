@@ -91,14 +91,12 @@ class Izin extends Model
         return asset('storage/formulir/'. $this->formulir);
     }
 
-    public function getGetSisaHariAttribute()
+    public function getGetJumlahHariAttribute()
     {
-        if($this->tgl_akhir < Carbon::now()) {
-            return 'selesai';
-        }else{
-            $created = new Carbon($this->tgl_akhir);
-            $now = Carbon::now();
-            return $created->diff($now)->days + 1 .' Hari';
-        }
+        $start = Carbon::parse($this->tgl_mulai);
+        $end = Carbon::parse($this->tgl_selesai);
+        $result = $start->diffInDays($end);
+
+        return $result;
     }
 }

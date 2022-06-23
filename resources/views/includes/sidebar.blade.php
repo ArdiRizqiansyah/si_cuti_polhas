@@ -85,6 +85,13 @@
                             <span>Laporan</span>
                         </a>
                     </li>
+
+                    <li class="sidebar-item {{ request()->is('*/saldo*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.saldo') }}" class='sidebar-link'>
+                            <i class="bi bi-clipboard"></i>
+                            <span>Saldo Cuti</span>
+                        </a>
+                    </li>
                 @endif
 
                 @if (auth()->user()->role_id == 2)
@@ -104,6 +111,12 @@
                         <a href="{{ route('kepala.izin.index') }}" class='sidebar-link'>
                             <i class="bi bi-envelope-paper"></i>
                             <span>Validasi Izin</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ request()->is('*/saldo*') ? 'active' : '' }}">
+                        <a href="{{ route('kepala.saldo') }}" class='sidebar-link'>
+                            <i class="bi bi-clipboard"></i>
+                            <span>Saldo Cuti</span>
                         </a>
                     </li>
                 @endif

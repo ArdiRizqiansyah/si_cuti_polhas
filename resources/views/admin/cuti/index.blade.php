@@ -36,6 +36,7 @@
                                         <th>Nama</th>
                                         <th>Jenis Cuti</th>
                                         <th>Tanggal Mulai</th>
+                                        <th>Jumlah Hari</th>
                                         <th>Tanggal Selesai</th>
                                         <th>Pengganti</th>
                                         <th>Dokumen</th>
@@ -51,6 +52,7 @@
                                                 <td>{{ $c->jenis }}</td>
                                                 <td>{{ $c->tgl_mulai }}</td>
                                                 <td>{{ $c->tgl_akhir }}</td>
+                                                <td>{{ $c->getJumlahHari }} Hari</td>
                                                 <td>{{ $c->pengganti->nama }}</td>
                                                 <td>
                                                     @if ($c->dokumen)
