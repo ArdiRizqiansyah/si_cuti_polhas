@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -83,5 +84,21 @@ class Izin extends Model
     public function getGetDokumenAttribute()
     {
         return asset('storage/dokumen/'. $this->dokumen);
+    }
+
+    public function getGetFormulirAttribute()
+    {
+        return asset('storage/formulir/'. $this->formulir);
+    }
+
+    public function getGetSisaHariAttribute()
+    {
+        if($this->tgl_akhir < Carbon::now()) {
+            return 'selesai';
+        }else{
+            $created = new Carbon($this->tgl_akhir);
+            $now = Carbon::now();
+            return $created->diff($now)->days + 1 .' Hari';
+        }
     }
 }

@@ -79,6 +79,13 @@ class CutiController extends Controller
             $data['dokumen'] = $dokumen->hashName();
         }
 
+        // cek formulir
+        if ($request->file('formulir')) {
+            $formulir = $request->file('formulir');
+            $formulir->storeAs('public/formulir', $formulir->hashName());
+            $data['formulir'] = $formulir->hashName();
+        }
+
         Izin::create($data);
 
         return redirect()->route('pegawai.cuti.index')->with('success', 'Cuti berhasil diajukan');
@@ -155,6 +162,13 @@ class CutiController extends Controller
             }
 
             $data['dokumen'] = $dokumen->hashName();
+        }
+
+        // cek formulir
+        if ($request->file('formulir')) {
+            $formulir = $request->file('formulir');
+            $formulir->storeAs('public/formulir', $formulir->hashName());
+            $data['formulir'] = $formulir->hashName();
         }
 
         $cuti->update($data);

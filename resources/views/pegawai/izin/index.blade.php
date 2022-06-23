@@ -40,6 +40,7 @@
                                         <th>Jenis Izin</th>
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
+                                        <th>Sisa Waktu</th>
                                         <th>Dokumen</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
@@ -52,9 +53,11 @@
                                                 <td>{{ $i->nama }}</td>
                                                 <td>{{ $i->jenis }}</td>
                                                 <td>{{ $i->tgl_mulai }}</td>
+                                                <td>{{ $i->tgl_akhir }}</td>
+                                                <td>{{ $i->getSisaHari }}</td>
                                                 <td>
-                                                    @if ($c->dokumen)
-                                                        <a href="{{ $c->getDokumen }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Lihat</a>
+                                                    @if ($i->dokumen)
+                                                        <a href="{{ $i->getDokumen }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Lihat</a>
                                                     @else
                                                         <span class="text-muted">Tidak ada dokumen</span>
                                                     @endif
@@ -68,8 +71,7 @@
                                                         <span class="badge bg-info">Menunggu Persetujuan</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $i->tgl_akhir }}</td>
-                                                <td>
+                                                <td class="text-nowrap">
                                                     <a href="{{ route('pegawai.izin.edit', ['izin' => $i->id]) }}" class="btn btn-success"><i class="far fa-edit me-1"></i>Ubah</a>
                                                     <button onclick="hapusData('{{ route('pegawai.izin.destroy', ['izin' => $i->id]) }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="far fa-trash-alt me-1"></i>Hapus</button>
                                                 </td>

@@ -69,6 +69,18 @@
                             @enderror
                             <input type="file" name="dokumen" id="dokumen" class="form-control @error('dokumen') is-invalid @enderror">
                         </div>
+                        <div class="form-group">
+                            <label for="formulir" class="form-label">Formulir</label>
+                            @if ($page == 'Edit')
+                                <p class="mb-2 text-muted">Kosongkan jika tidak ada perubahan</p>
+                            @endif
+                            @error('formulir')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            <input type="file" name="formulir" id="formulir" class="form-control @error('formulir') is-invalid @enderror">
+                        </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
