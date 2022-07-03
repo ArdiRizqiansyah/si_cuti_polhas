@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
-            $table->text('nik')->unique()->nullable();
+            $table->text('nik')->unique(20)->nullable();
             $table->text('no_kk')->nullable();
             $table->text('alamat')->nullable();
             $table->tinyInteger('status_perkawinan')->comment('1 = belum kawin, 2 = kawin, 3 = cerai hidup, 4 = cerai mati')->nullable();
