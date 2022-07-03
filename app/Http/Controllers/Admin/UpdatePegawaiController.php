@@ -130,7 +130,7 @@ class UpdatePegawaiController extends Controller
 
         // validasi data pegawai jika inputan ada
         if ($request->password) {
-            $rules['password'] = 'required|min:6|confirmed';
+            $rules['password'] = 'required|min:6';
         }
 
         if($request->has('avatar')) {
@@ -176,7 +176,7 @@ class UpdatePegawaiController extends Controller
     public function updatePegawai($id, Request $request)
     {
         // cari pegawai
-        $pegawai = Pegawai::where($id)->first();
+        $pegawai = Pegawai::find($id);
 
         // data pegawai
         $data_pegawai = [
