@@ -36,6 +36,7 @@
                                         <th>Nama</th>
                                         <th>Jenis Izin</th>
                                         <th>Tanggal Mulai</th>
+                                        <th>Jumlah Hari</th>
                                         <th>Tanggal Selesai</th>
                                         <th>Dokumen</th>
                                         <th>Aksi</th>
@@ -49,6 +50,7 @@
                                                 <td>{{ $i->jenis }}</td>
                                                 <td>{{ $i->tgl_mulai }}</td>
                                                 <td>{{ $i->tgl_akhir }}</td>
+                                                <td>{{ $i->getJumlahHari }} Hari</td>
                                                 <td>
                                                     @if ($i->dokumen)
                                                         <a href="{{ $i->getDokumen }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Lihat</a>
