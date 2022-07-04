@@ -17,7 +17,7 @@ class IzinController extends Controller
     public function index(Request $request)
     {
         $data = [
-            'izin' => Izin::with(['pegawai'])->where('pegawai_id', '!=', auth()->user()->pegawai->id)->joinIzin()->filter($request->keyword)->paginate(10),
+            'izin' => Izin::with(['pegawai'])->joinIzin()->filter($request->keyword)->paginate(10),
         ];
 
         return view('admin.izin.index', $data);

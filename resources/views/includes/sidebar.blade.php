@@ -154,6 +154,33 @@
                     </li>
                 @endif
 
+                @if (auth()->user()->role_id == 4)
+                    <li class="sidebar-item {{ request()->is('*/profile*') ? 'active' : '' }}">
+                        <a href="{{ route('direktur.profile') }}" class='sidebar-link'>
+                            <i class="bi bi-person"></i>
+                            <span>Data Diri</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ request()->is('*/cuti*') ? 'active' : '' }}">
+                        <a href="{{ route('direktur.cuti.index') }}" class='sidebar-link'>
+                            <i class="bi bi-ui-checks-grid"></i>
+                            <span>Validasi Cuti</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ request()->is('*/izin*') ? 'active' : '' }}">
+                        <a href="{{ route('direktur.izin.index') }}" class='sidebar-link'>
+                            <i class="bi bi-envelope-paper"></i>
+                            <span>Validasi Izin</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ request()->is('*/saldo*') ? 'active' : '' }}">
+                        <a href="{{ route('direktur.saldo') }}" class='sidebar-link'>
+                            <i class="bi bi-clipboard"></i>
+                            <span>Saldo Cuti</span>
+                        </a>
+                    </li>
+                @endif
+
                 <li class="sidebar-item">
                     <a href="{{ route('logout') }}" class='sidebar-link'>
                         <i class="bi bi-box-arrow-left"></i>

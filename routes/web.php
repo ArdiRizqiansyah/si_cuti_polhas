@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\IzinController AS AdminIzinController;
 use App\Http\Controllers\Admin\LaporanController AS AdminLaporanController;
 use App\Http\Controllers\Admin\SaldoController AS AdminSaldoController;
+
 // controller pegawai
 use App\Http\Controllers\Pegawai\DashboardController AS PegawaiDashboardController;
 use App\Http\Controllers\Pegawai\ProfileController AS PegawaiProfileController;
@@ -27,6 +28,13 @@ use App\Http\Controllers\Kepala\IzinController AS KepalaIzinController;
 use App\Http\Controllers\Kepala\PengajuanCutiController AS KepalaPengajuanCutiController;
 use App\Http\Controllers\Kepala\PengajuanIzinController AS KepalaPengajuanIzinController;
 use App\Http\Controllers\Kepala\SaldoController AS KepalaSaldoController;
+
+// controller direktur
+use App\Http\Controllers\Direktur\DashboardController AS DirekturDashboardController;
+use App\Http\Controllers\Direktur\CutiController AS DirekturCutiController;
+use App\Http\Controllers\Direktur\IzinController AS DirekturIzinController;
+use App\Http\Controllers\Direktur\ProfileController AS DirekturProfileController;
+use App\Http\Controllers\Direktur\SaldoController AS DirekturSaldoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,6 +153,19 @@ Route::group(['prefix' => 'kepala', 'middleware' => 'role:kepala'], function() {
 // direktur routes
 Route::group(['prefix' => 'direktur', 'middleware' => 'role:direktur'], function() {
     Route::name('direktur.')->group(function() {
+        Route::get('/dashboard', [DirekturDashboardController::class, 'index'])->name('dashboard');
 
+        // profil
+        Route::get('/profile', [DirekturProfileController::class, 'index'])->name('profile');
+        Route::put('/profile/update', [DirekturProfileController::class, 'update'])->name('profile.update');
+        
+        // cuti
+        Route::resource('cuti', DirekturCutiController::class);
+
+        // izin
+        Route::resource('izin', DirekturIzinController::class);
+
+        // saldo
+        Route::get('saldo', [DirekturSaldoController::class, 'index'])->name('saldo');
     });
 });
