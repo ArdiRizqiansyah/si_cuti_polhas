@@ -24,6 +24,8 @@ use App\Http\Controllers\Kepala\DashboardController AS KepalaDashboardController
 use App\Http\Controllers\Kepala\ProfileController AS KepalaProfileController;
 use App\Http\Controllers\Kepala\CutiController AS KepalaCutiController;
 use App\Http\Controllers\Kepala\IzinController AS KepalaIzinController;
+use App\Http\Controllers\Kepala\PengajuanCutiController AS KepalaPengajuanCutiController;
+use App\Http\Controllers\Kepala\PengajuanIzinController AS KepalaPengajuanIzinController;
 use App\Http\Controllers\Kepala\SaldoController AS KepalaSaldoController;
 
 /*
@@ -131,5 +133,18 @@ Route::group(['prefix' => 'kepala', 'middleware' => 'role:kepala'], function() {
 
         // saldo routes for kepala
         Route::get('saldo', [KepalaSaldoController::class, 'index'])->name('saldo');
+
+        // pengajuan cuti
+        Route::resource('pengajuan-cuti', KepalaPengajuanCutiController::class);
+
+        // pengajuan izin
+        Route::resource('pengajuan-izin', KepalaPengajuanIzinController::class);
+    });
+});
+
+// direktur routes
+Route::group(['prefix' => 'direktur', 'middleware' => 'role:direktur'], function() {
+    Route::name('direktur.')->group(function() {
+
     });
 });

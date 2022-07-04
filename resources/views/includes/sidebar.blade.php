@@ -101,6 +101,18 @@
                             <span>Data Diri</span>
                         </a>
                     </li>
+                    <li class="sidebar-item {{ request()->is('*/pengajuan-cuti*') ? 'active' : '' }}">
+                        <a href="{{ route('kepala.pengajuan-cuti.index') }}" class='sidebar-link'>
+                            <i class="bi bi-columns-gap"></i>
+                            <span>Pengajuan Cuti</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ request()->is('*/pengajuan-izin*') ? 'active' : '' }}">
+                        <a href="{{ route('kepala.pengajuan-izin.index') }}" class='sidebar-link'>
+                            <i class="bi bi-envelope-plus"></i>
+                            <span>Pengajuan Izin</span>
+                        </a>
+                    </li>
                     <li class="sidebar-item {{ request()->is('*/cuti*') ? 'active' : '' }}">
                         <a href="{{ route('kepala.cuti.index') }}" class='sidebar-link'>
                             <i class="bi bi-ui-checks-grid"></i>

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Kepala;
 
-use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
-class IzinController extends Controller
+class PengajuanIzinController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,13 @@ class IzinController extends Controller
      */
     public function index(Request $request)
     {
+        $izin = Izin::with('pegawai')->joinIzin()->where('pegawai_id', auth()->user()->pegawai->id)->filter($request->keyword)->paginate(10);
+
         $data = [
-            'izin' => Izin::with(['pegawai'])->where('pegawai_id', '!=', auth()->user()->pegawai->id)->joinIzin()->filter($request->keyword)->paginate(10),
+            'izin' => $izin,
         ];
 
-        return view('admin.izin.index', $data);
+        return view('kepala.pengajuan_izin.index', $data);
     }
 
     /**
@@ -30,7 +32,12 @@ class IzinController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'page' => 'Tambah',
+            'url' => route('kepala.pengajuan-izin.store'),
+        ];
+
+        return view('kepala.pengajuan_izin.create', $data);
     }
 
     /**
@@ -41,7 +48,34 @@ class IzinController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'jenis' => 'required',
+            'tgl_mulai' => 'required|before:tgl_akhir',
+            'tgl_akhir' => 'required',
+            // 'pengganti_id' => 'required',
+        ]);
+
+        $data = [
+            'jenis' => $request->jenis,
+            'tgl_mulai' => $request->tgl_mulai,
+            'tgl_akhir' => $request->tgl_akhir,
+            'permohonan' => 1,
+            'status' => 3,
+            'pegawai_id' => auth()->user()->pegawai->id,
+            // 'pengganti_id' => $request->pengganti_id,
+            'unit_id' => auth()->user()->pegawai->unit_id,
+        ];
+
+        // cek dokumen
+        if ($request->file('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $dokumen->storeAs('public/dokumen', $dokumen->hashName());
+            $data['dokumen'] = $dokumen->hashName();
+        }
+
+        Izin::create($data);
+
+        return redirect()->route('kepala.pengajuan-izin.index')->with('success', 'Izin berhasil diajukan');
     }
 
     /**
@@ -50,9 +84,9 @@ class IzinController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        // 
     }
 
     /**
@@ -66,10 +100,10 @@ class IzinController extends Controller
         $data = [
             'izin' => Izin::find($id),
             'page' => 'Edit',
-            'url' => route('admin.izin.update', $id),
+            'url' => route('kepala.pengajuan-izin.update', $id),
         ];
 
-        return view('admin.izin.create', $data);
+        return view('kepala.pengajuan_izin.create', $data);
     }
 
     /**
@@ -84,7 +118,7 @@ class IzinController extends Controller
         $izin = Izin::find($id);
 
         if($izin->status != 3){
-            return redirect()->route('admin.izin.index')->with('error', 'Izin tidak dapat diubah');
+            return redirect()->route('kepala.pengajuan-izin.index')->with('error', 'Izin tidak dapat diubah');
         }
 
         $request->validate([
@@ -116,7 +150,7 @@ class IzinController extends Controller
 
         $izin->update($data);
 
-        return redirect()->route('admin.izin.index', $izin->pegawai_id)->with('success', 'Izin berhasil diubah');
+        return redirect()->route('kepala.pengajuan-izin.index')->with('success', 'Izin berhasil diubah');
     }
 
     /**
@@ -129,19 +163,17 @@ class IzinController extends Controller
     {
         $izin = Izin::find($id);
 
-        // cek status izin
-        if($izin->status == 1){
-            return back()->with('error', 'Izin sudah disetujui Kepala Unit');
-        }elseif($izin->status == 2){
-            return back()->with('error', 'Izin sudah ditolak Kepala Unit');
-        }else{
-            // hapus dokumen lama
-            if ($izin->dokumen) {
-                Storage::delete('public/dokumen/' . $izin->dokumen);
-            }
-
-            $izin->delete();
-            return back()->with('success', 'Izin berhasil dihapus');
+        if($izin->status != 3){
+            return redirect()->route('kepala.pengajuan-izin.index')->with('error', 'Izin tidak dapat dihapus');
         }
+
+        // hapus dokumen lama
+        if ($izin->dokumen) {
+            Storage::delete('public/dokumen/' . $izin->dokumen);
+        }
+
+        $izin->delete();
+
+        return redirect()->route('kepala.pengajuan-izin.index', $izin->pegawai_id)->with('success', 'Izin berhasil dihapus');
     }
 }

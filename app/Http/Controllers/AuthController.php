@@ -26,6 +26,8 @@ class AuthController extends Controller
                 return redirect()->route('kepala.dashboard');
             }elseif(Auth()->user()->role->name == 'pegawai'){
                 return redirect()->route('pegawai.dashboard');
+            }elseif(Auth()->user()->role->name == 'direktur'){
+                return redirect()->route('direktur.dashboard');
             }
         }
 
