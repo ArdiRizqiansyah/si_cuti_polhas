@@ -128,7 +128,7 @@ class ProfileController extends Controller
 
         // validasi data pegawai jika inputan ada
         if ($request->password) {
-            $rules['password'] = 'required|min:6|confirmed';
+            $rules['password'] = 'required|min:6';
         }
 
         if($request->has('avatar')) {
