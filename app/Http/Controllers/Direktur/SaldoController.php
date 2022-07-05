@@ -18,7 +18,7 @@ class SaldoController extends Controller
             'pegawai' => Pegawai::with(['cuti' => function($query) use ($tahun){
                 $query->where('status', 1)
                     ->whereYear('created_at', $tahun);
-            }])->search($_GET['keyword'] ?? null)->where('kepala_id', 1)->paginate(15),
+            }])->search($_GET['keyword'] ?? null)->whereNotNull('kepala_id')->paginate(15),
         ];
 
         return view('direktur.saldo.index', $data);
