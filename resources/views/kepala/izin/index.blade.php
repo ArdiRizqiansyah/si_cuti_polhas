@@ -36,8 +36,8 @@
                                         <th>Nama</th>
                                         <th>Jenis Izin</th>
                                         <th>Tanggal Mulai</th>
-                                        <th>Jumlah Hari</th>
                                         <th>Tanggal Selesai</th>
+                                        <th>Jumlah Hari</th>
                                         <th>Dokumen</th>
                                         <th>Aksi</th>
                                     </thead>
