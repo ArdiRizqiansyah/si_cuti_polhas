@@ -192,10 +192,10 @@ class PegawaiController extends Controller
         $pegawai->update($data_pegawai);
 
         // update pegawai ke tabel pegawai_unit
-        $pegawai_unit = PegawaiUnit::where('pegawai_id', $pegawai->id)->first();
-        $pegawai_unit->update([
-            'unit_id' => $request->unit_id,
-        ]);
+        // $pegawai_unit = Pegawai::where('id', $pegawai->id)->first();
+        // $pegawai_unit->update([
+        //     'unit_id' => $request->unit_id,
+        // ]);
 
         return back()->with('success', 'Data pegawai berhasil diubah');
     }
