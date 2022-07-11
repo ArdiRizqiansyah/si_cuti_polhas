@@ -86,7 +86,7 @@
                 </div>
                 <div class="form-group">
                     <label for="bjps_ket" class="form-label">Nomor BPJS Ketenagakerjaan</label>
-                    <input type="text" name="bjps_ket" id="bjps_ket" class="form-control" value="{{ old('bpjs_ket', $profile->no_bpjs_ketenagakerjaan) }}" required>
+                    <input type="text" name="bjps_ket" id="bpjs_ket" class="form-control" value="{{ old('bpjs_ket', $profile->no_bpjs_ketenagakerjaan) }}" required>
                 </div>
                 <div class="form-group">
                     <label for="bpjs_kes" class="form-label">Nomor BPJS Kesehatan</label>
