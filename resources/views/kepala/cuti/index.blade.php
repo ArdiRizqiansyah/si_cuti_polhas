@@ -8,6 +8,7 @@
 
 @section('content')
     @include('includes.swal_alert')
+    @include('partials.modal_potongan')
     @include('partials.modal_setujui')
 
     <div class="row">
@@ -66,6 +67,9 @@
                                                     @elseif ($c->status == 2)
                                                         <span class="badge bg-danger">Berhasil ditolak</span>
                                                     @else
+                                                    {{-- update jumlah potongan saldo cuti --}}
+                                                    {{-- modal --}}
+                                                    <button onclick="potongan('{{ route('kepala.cuti.potongan', ['cuti' => $c->id]) }}', {{ $c->potongan }})" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#modal-potongan">Atur Saldo Terpotong</button>
                                                     <button onclick="setujui('{{ route('kepala.cuti.update', ['cuti' => $c->id]) }}')" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal-setujui">Setujui</button>
                                                     @endif
                                                 </td>

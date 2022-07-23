@@ -81,6 +81,10 @@ class CutiController extends Controller
     {
         if($request->permohonan == 'setuju'){
             $izin = Izin::find($id);
+            if($izin->potongan == null){
+                return redirect()->back()->with('error', 'Pastikan saldo terpotong telah diatur');
+
+            }
             $izin->update([
                 'status' => 1,
             ]);
@@ -103,5 +107,15 @@ class CutiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function potongan(Request $request)
+    {
+        $izin = Izin::find($request->cuti);
+        $izin->update([
+            'potongan' => $request->potongan,
+        ]);
+
+        return redirect()->route('direktur.cuti.index')->with('success', 'Potongan Cuti Pegawai berhasil diubah');
     }
 }

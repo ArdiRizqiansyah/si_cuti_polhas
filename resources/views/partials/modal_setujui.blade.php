@@ -16,6 +16,7 @@
                             <button type="button" class="btn btn-secondary me-1" data-bs-dismiss="modal">Batal</button>
                             <form action="" id="action-id-setujui" method="POST" class="d-inline">
                                 <input type="hidden" name="permohonan" id="permohonan-modal">
+                                
                                 @method('put')
                                 @csrf
                                 <button class="btn btn-danger ms-1" onclick="menolak()">Tolak</button>

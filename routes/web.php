@@ -135,6 +135,7 @@ Route::group(['prefix' => 'kepala', 'middleware' => 'role:kepala'], function() {
 
         // cuti routes for kepala
         Route::resource('cuti', KepalaCutiController::class);
+        Route::put('cuti/{cuti}/potongan', [KepalaCutiController::class, 'potongan'])->name('cuti.potongan');
 
         // izin routes for kepala
         Route::resource('izin', KepalaIzinController::class);
@@ -161,6 +162,8 @@ Route::group(['prefix' => 'direktur', 'middleware' => 'role:direktur'], function
         
         // cuti
         Route::resource('cuti', DirekturCutiController::class);
+        Route::put('cuti/{cuti}/potongan', [DirekturCutiController::class, 'potongan'])->name('cuti.potongan');
+
 
         // izin
         Route::resource('izin', DirekturIzinController::class);

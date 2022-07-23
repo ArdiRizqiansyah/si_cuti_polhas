@@ -74,7 +74,7 @@
                                     @php
                                         $jumlah_hari = 0;
                                         foreach ($peg->cuti as $cuti) {
-                                            $jumlah_hari += $cuti->getJumlahHari;
+                                            $jumlah_hari += $cuti->potongan;
                                         }
                                     @endphp
 
