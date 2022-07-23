@@ -81,16 +81,18 @@ class CutiController extends Controller
     {
         if($request->permohonan == 'setuju'){
             $izin = Izin::find($id);
-            if($izin->potongan == null){
+            if($izin->potongan === null){
                 return redirect()->back()->with('error', 'Pastikan saldo terpotong telah diatur');
 
             }
             $izin->update([
+                'keterangan' => $request->keterangan,
                 'status' => 1,
             ]);
         }else{
             $izin = Izin::find($id);
             $izin->update([
+                'keterangan' => $request->keterangan,
                 'status' => 2,
             ]);
         }

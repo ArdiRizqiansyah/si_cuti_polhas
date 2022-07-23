@@ -39,6 +39,7 @@
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
                                         <th>Jumlah Hari</th>
+                                        <th>Saldo Cuti Terpotong</th>
                                         <th>Pengganti</th>
                                         <th>Dokumen</th>
                                         <th>Aksi</th>
@@ -53,6 +54,7 @@
                                                 <td>{{ $c->tgl_mulai }}</td>
                                                 <td>{{ $c->tgl_akhir }}</td>
                                                 <td>{{ $c->getJumlahHari }} Hari</td>
+                                                <td>{{ $c->potongan }} Hari</td>
                                                 <td>{{ $c->pengganti->nama }}</td>
                                                 <td>
                                                     @if ($c->dokumen)

@@ -82,11 +82,13 @@ class IzinController extends Controller
         if($request->permohonan == 'setuju'){
             $izin = Izin::find($id);
             $izin->update([
+                'keterangan' => $request->keterangan,
                 'status' => 1,
             ]);
         }else{
             $izin = Izin::find($id);
             $izin->update([
+                'keterangan' => $request->keterangan,
                 'status' => 2,
             ]);
         }

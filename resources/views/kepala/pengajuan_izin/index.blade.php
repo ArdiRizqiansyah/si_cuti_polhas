@@ -43,6 +43,7 @@
                                         <th>Jumlah Hari</th>
                                         <th>Dokumen</th>
                                         <th>Status</th>
+                                        <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </thead>
                                     <tbody>
@@ -71,6 +72,7 @@
                                                         <span class="badge bg-info">Menunggu Persetujuan</span>
                                                     @endif
                                                 </td>
+                                                <td>{{ $i->keterangan ?? '-' }}</td>
                                                 <td class="text-nowrap">
                                                     <a href="{{ route('kepala.pengajuan-izin.edit', ['pengajuan_izin' => $i->id]) }}" class="btn btn-success"><i class="far fa-edit me-1"></i>Ubah</a>
                                                     <button onclick="hapusData('{{ route('kepala.pengajuan-izin.destroy', ['pengajuan_izin' => $i->id]) }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="far fa-trash-alt me-1"></i>Hapus</button>

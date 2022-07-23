@@ -3,6 +3,7 @@
 @section('title', 'Cuti')
 
 @section('heading')
+    @include('partials.prosedur_cuti')
     <h3 class="text-center">Data Cuti</h3>
 @endsection
 
@@ -15,9 +16,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-3 justify-content-between">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <a href="{{ route('pegawai.cuti.create') }}" class="btn btn-primary"><i class="fa fa-plus me-1"></i>Tambah Cuti</a>
                             <a href="{{ asset('form_cuti_polhas.xlsx') }}" target="_blank" class="btn btn-secondary"><i class="fa fa-download me-1"></i>Unduh Formulir</a>
+                            <a href="{{ asset('prosedur.pdf') }}" target="_blank" class="btn btn-secondary"><i class="fa fa-download me-1"></i>Prosedur Cuti</a>
                         </div>
                         <div class="col-md-4">
                             <form action="{{ route('pegawai.cuti.index') }}" method="get">
@@ -43,8 +45,9 @@
                                         <th>Tanggal Selesai</th>
                                         <th>Jumlah Hari</th>
                                         <th>Dokumen</th>
-                                        <th>Formulir</th>
+                                        {{-- <th>Formulir</th> --}}
                                         <th>Status</th>
+                                        <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </thead>
                                     <tbody>
@@ -64,13 +67,13 @@
                                                         <span class="text-muted">Tidak ada dokumen</span>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     @if ($c->formulir)
                                                         <a href="{{ $c->getformulir }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Lihat</a>
                                                     @else
                                                         <span class="text-muted">Tidak ada formulir</span>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     @if ($c->status == 1)
                                                         <span class="badge bg-success">Disetujui</span>
@@ -80,6 +83,7 @@
                                                         <span class="badge bg-info">Menunggu Persetujuan</span>
                                                     @endif
                                                 </td>
+                                                <td>{{ $c->keterangan ?? '-' }}</td>
                                                 <td class="text-nowrap">
                                                     <a href="{{ route('pegawai.cuti.edit', ['cuti' => $c->id]) }}" class="btn btn-success"><i class="far fa-edit me-1"></i>Ubah</a>
                                                     <button onclick="hapusData('{{ route('pegawai.cuti.destroy', ['cuti' => $c->id]) }}')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="far fa-trash-alt me-1"></i>Hapus</button>

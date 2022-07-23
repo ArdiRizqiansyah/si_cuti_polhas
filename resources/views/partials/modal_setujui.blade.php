@@ -13,15 +13,26 @@
                     <div class="col">
                         <p>Apakah anda ingin mensetujui permohonan pegawai?</p>
                         <div class="my-4">
-                            <button type="button" class="btn btn-secondary me-1" data-bs-dismiss="modal">Batal</button>
                             <form action="" id="action-id-setujui" method="POST" class="d-inline">
                                 <input type="hidden" name="permohonan" id="permohonan-modal">
                                 
+                                
                                 @method('put')
                                 @csrf
+                                
+                                {{-- input keterangan --}}
+                                <div class="form-group">
+                                    <label for="keterangan">Keterangan</label>
+                                    <textarea name="keterangan" id="keterangan" class="form-control mb-2" rows="2"></textarea>
+                                    {{-- help text --}}
+                                    <p class="form-text text-muted">
+                                        Keterangan yang akan ditambahkan pada permohonan pegawai.
+                                    </p>
+                                </div>
                                 <button class="btn btn-danger ms-1" onclick="menolak()">Tolak</button>
                                 <button class="btn btn-success ms-1" onclick="mensetujui()">Setujui</button>
                             </form>
+                            <button type="button" class="btn btn-secondary ms-1" data-bs-dismiss="modal">Batal</button>
                         </div>
                     </div>
                 </div>
